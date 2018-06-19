@@ -15,8 +15,17 @@ RUN source /ros_entrypoint.sh \
 	&& mkdir -p $CATKIN_WS/src \
 	&& cd $CATKIN_WS && catkin_init_workspace \
 	&& cd src && git clone https://github.com/ICRA2017/autonomy_hri.git
+
+RUN source /ros_entrypoint.sh \
+	&& cd $CATKIN_WS/src \
+	&& git clone https://github.com/AutonomyLab/miarn_ros.git
 	
 RUN source /ros_entrypoint.sh \
 	&& cd $CATKIN_WS \
-	&& ROS_PACKAGE_PATH=./src:$ROS_PACKAGE_PATH rosmake autonomy_human
+	&& rosdep install --from-paths src --ignore-src -r -y
+
+RUN source /ros_entrypoint.sh \
+	&& cd $CATKIN_WS \
+	&& unlink CMakeLists.txt \
+	&& catkin_make
 
