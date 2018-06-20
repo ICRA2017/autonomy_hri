@@ -3,7 +3,7 @@ FROM ros:indigo-perception
 RUN apt-get update && apt-get install -y \
 	python-catkin-pkg python-rosdep python-wstool \
 	python-catkin-tools ros-indigo-catkin \
-	build-essential \
+	build-essential wget \
 	&& rm -rf /var/lib/apt/lists
 
 ENV CATKIN_WS=/root/catkin_ws
@@ -19,10 +19,6 @@ RUN source /ros_entrypoint.sh \
 RUN source /ros_entrypoint.sh \
 	&& cd $CATKIN_WS/src \
 	&& git clone https://github.com/AutonomyLab/miarn_ros.git
-
-RUN apt-get update && apt-get install -y \
-	wget \
-	&& rm -rf /var/lib/apt/lists
 
 RUN echo -e "deb http://archive.hark.jp/harkrepos $(lsb_release -cs) non-free\ndeb-src http://archive.hark.jp/harkrepos $(lsb_release -cs) non-free" > /etc/apt/sources.list.d/hark.list \
 	&& wget -q -O - http://archive.hark.jp/harkrepos/public.gpg | apt-key add -
