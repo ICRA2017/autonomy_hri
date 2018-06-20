@@ -32,8 +32,8 @@ RUN source /ros_entrypoint.sh \
 	&& cd $CATKIN_WS \
 	&& rosdep install --from-paths src --ignore-src -r -y
 
-#RUN source /ros_entrypoint.sh \
-#	&& cd $CATKIN_WS \
-#	&& unlink CMakeLists.txt \
-#	&& catkin_make
+RUN source /ros_entrypoint.sh \
+	&& cd $CATKIN_WS \
+	&& unlink CMakeLists.txt \
+	&& catkin_make
 
